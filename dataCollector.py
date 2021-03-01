@@ -1,11 +1,6 @@
 from binance.client import Client
 
-def get_data_for_currency(_symbol,_interval,_start,_end):
-    cli = Client()
-    data = cli.get_historical_klines(symbol=_symbol,interval=_interval,start_str=_start,end_str=_end)
-    for i in range(len(data)):
-        data[i] = [ float(data[i][j]) for j in range(12) ]
-    return data
+def get_data_for_currency(_symbol,_interval,_start="01/01/2010",_end="now UTC"):
     '''
     return format
     arr[0] = start of time interval
@@ -21,4 +16,10 @@ def get_data_for_currency(_symbol,_interval,_start,_end):
     arr[10] = taker buy quota asset volume
     arr[11] = Ignore
     '''
+    cli = Client()
+    data = cli.get_historical_klines(symbol=_symbol,interval=_interval,start_str=_start,end_str=_end)
+    for i in range(len(data)):
+        data[i] = [ float(data[i][j]) for j in range(12) ]
+    return data
+
     
